@@ -1,0 +1,28 @@
+{
+  "name": "vr-vis",
+  "version": "1.0.0",
+  "description": "visualize data in VR",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickycurry/vr-vis.git"
+  },
+  "keywords": [
+    "VR",
+    "D3",
+    "data-vis"
+  ],
+  "author": "Ricky Curry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rickycurry/vr-vis/issues"
+  },
+  "homepage": "https://github.com/rickycurry/vr-vis#readme",
+  "dependencies": {
+    "aframe": "^1.3.0",
+    "d3": "^7.4.4"
+  }
+}
