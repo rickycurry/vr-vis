@@ -1,12 +1,11 @@
 let iris;
 
 async function loadData() {
-  iris = await d3.csv('../../data/iris.csv');
+  iris = await d3.csv('../../data/output.csv');
   iris.forEach(d => {
-    d['sepal.length'] = +d['sepal.length'];
-    d['sepal.width'] = +d['sepal.width'];
-    d['petal.length'] = +d['petal.length'];
-    d['petal.width'] = +d['petal.width'];
+    d['0'] = +d['0'];
+    d['1'] = +d['1'];
+    d['2'] = +d['2'];
   });
 }
 
@@ -16,32 +15,32 @@ async function main() {
 
   // set up color range
   const color = d3.scaleOrdinal(d3.schemeCategory10);
-  color.domain(new Set(iris.map(d => d['variety'])));
+  color.domain(new Set(iris.map(d => d['labels'])));
   
   // add iris data
   scene.selectAll("a-sphere")
     .data(iris)
     .join("a-sphere")
-      .attr("position", d => `${d['sepal.length']} ${d['sepal.width']} ${d['petal.length']}`)
+      .attr("position", d => `${d['0']} ${d['1']} ${d['2']}`)
       .attr("radius", 0.03)
-      .attr("color", d => color(d['variety']));
+      .attr("color", d => color(d['labels']));
 
   // add axes
   const sceneElement = document.querySelector('a-scene');
   const yAxis = document.createElement('a-cylinder');
   yAxis.setAttribute('material', {color: "#333"});
-  yAxis.setAttribute('geometry', {radius: 0.05, height: 100});
+  yAxis.setAttribute('geometry', {radius: 0.02, height: 100});
   sceneElement.appendChild(yAxis);
 
   const xAxis = document.createElement('a-cylinder');
   xAxis.setAttribute('material', {'color': "#333"});
-  xAxis.setAttribute('geometry', {radius: 0.05, height: 100});
+  xAxis.setAttribute('geometry', {radius: 0.02, height: 100});
   xAxis.setAttribute('rotation', {x: 90});
   sceneElement.appendChild(xAxis);
 
   const zAxis = document.createElement('a-cylinder');
   zAxis.setAttribute('material', {'color': "#333"});
-  zAxis.setAttribute('geometry', {radius: 0.05, height: 100});
+  zAxis.setAttribute('geometry', {radius: 0.02, height: 100});
   zAxis.setAttribute('rotation', {z: 90});
   sceneElement.appendChild(zAxis);
 

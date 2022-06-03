@@ -12,3 +12,5 @@ transformed_data = pca.fit_transform(dataframe)
 
 new_data = DataFrame(transformed_data)
 new_data = new_data.join(labels)
+
+new_data.to_csv("./data/output.csv")
