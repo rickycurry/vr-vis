@@ -26,24 +26,24 @@ async function main() {
       .attr("color", d => color(d['labels']));
 
   // add axes
+  const axes = [];
   const sceneElement = document.querySelector('a-scene');
   const yAxis = document.createElement('a-cylinder');
-  yAxis.setAttribute('material', {color: "#333"});
-  yAxis.setAttribute('geometry', {radius: 0.02, height: 100});
-  sceneElement.appendChild(yAxis);
+  axes.push(yAxis);
 
   const xAxis = document.createElement('a-cylinder');
-  xAxis.setAttribute('material', {'color': "#333"});
-  xAxis.setAttribute('geometry', {radius: 0.02, height: 100});
   xAxis.setAttribute('rotation', {x: 90});
-  sceneElement.appendChild(xAxis);
+  axes.push(xAxis);
 
   const zAxis = document.createElement('a-cylinder');
-  zAxis.setAttribute('material', {'color': "#333"});
-  zAxis.setAttribute('geometry', {radius: 0.02, height: 100});
   zAxis.setAttribute('rotation', {z: 90});
-  sceneElement.appendChild(zAxis);
+  axes.push(zAxis);
 
+  axes.forEach(a => {
+    a.setAttribute('material', {'color': "#333"});
+    a.setAttribute('geometry', {radius: 0.02, height: 100});
+    sceneElement.appendChild(a);
+  });
 
   // gridlines -- way too slow, and they don't look great
   // for (let x = 1; x < 50; x++) {
