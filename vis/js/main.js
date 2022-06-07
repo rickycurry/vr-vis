@@ -57,8 +57,8 @@ async function main() {
   renderVis("labels");
 
   d3.select("#data-dropdown")
-    .on("change", () => {
-      const selectedOption = this.value;
+    .on("change", (d) => {
+      const selectedOption = d.target.value;
       renderVis(selectedOption);
     });
 }
