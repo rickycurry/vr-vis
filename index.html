@@ -17,6 +17,19 @@
     <script src="vis/js/main.js"></script>
   </head>
   <body>
+    <!-- dropdown -->
+    <select name="dataset" id="data-dropdown">
+      <option value="labels">Original labels</option>
+      <option value="kmeans">K-means</option>
+      <option value="afprop">Affinity propagation</option>
+      <option value="meanshift">Mean shift</option>
+      <option value="spectral">Spectral</option>
+      <option value="hierarchical">Hierarchical</option>
+      <option value="dbscan">DBSCAN</option>
+      <option value="optics">OPTICS</option>
+      <option value="birch">BIRCH</option>
+    </select>
+
     <a-scene class="aframebox" embedded background="color: #ECECEC" id="a-frame_scene">
       <a-camera position="0.5 0.5 5"></a-camera>
       <!-- Three orthogonal plans that intersect at (0 0 0) -->

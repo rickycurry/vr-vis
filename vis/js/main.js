@@ -32,12 +32,12 @@ function setupVis() {
   });
 }
 
-function renderVis() {
+function renderVis(category) {
   const scene = d3.select("a-scene");
 
   // set up color range
   const color = d3.scaleOrdinal(d3.schemeCategory10);
-  color.domain(new Set(iris.map(d => d['optics'])));
+  color.domain(new Set(iris.map(d => d[category])));
   
   // add iris data
   scene.selectAll("a-sphere")
@@ -46,7 +46,7 @@ function renderVis() {
       .attr("position", d => `${d['0']} ${d['1']} ${d['2']}`)
       .attr("radius", 0.03)
       .attr("color", d => {
-        const val = d['optics'];
+        const val = d[category];
         return val === "-1" ? "#444" : color(val)
       });
 }
@@ -54,7 +54,13 @@ function renderVis() {
 async function main() {
   await loadData();
   setupVis();
-  renderVis();
+  renderVis("labels");
+
+  d3.select("#data-dropdown")
+    .on("change", () => {
+      const selectedOption = this.value;
+      renderVis(selectedOption);
+    });
 }
 
 main();
