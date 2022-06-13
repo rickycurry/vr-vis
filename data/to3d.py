@@ -1,6 +1,8 @@
 from sklearn import decomposition, cluster
 from pandas import read_csv, DataFrame, Series
 
+# TODO: break this into a "to3d.py" and a "cluster.py"
+
 # assumes the labels are in the rightmost column
 dataframe = read_csv("./data/iris.csv", delimiter=',')
 labels = dataframe.iloc[:, -1]

@@ -15,6 +15,7 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="http://d3js.org/d3.v7.min.js" charset="utf-8"></script>
     <script src="vis/js/main.js"></script>
+    <script src="server/rerunClustering.js"></script>
   </head>
   <body>
     <!-- dropdown -->
@@ -37,5 +38,130 @@
       <a-plane position="0 0 0" rotation="0 0 0" width="100" height="100" color="#BBBBBB"></a-plane>
       <a-plane position="0 0 0" rotation="0 90 0" width="100" height="100" color="#AAAAAA"></a-plane> -->
     </a-scene>
+
+    <!-- options for re-running clustering algos -->
+    <div id="options">
+      <h4>K-Means</h4>
+      <label for="kmeans-k">K clusters: </label>
+      <input type="number" step="1" min="1" id="kmeans-k" value="3">
+  
+      <h4>Affinity propagation</h4>
+      <label for="afprop-damping">Damping: [0.5, 1.0] </label>
+      <input type="number" min="0.5" max="1.0" step="0.1" id="afprop-damping" value="0.5">
+  
+      <h4>Mean shift</h4>
+      <label for="meanshift-bandwidth">Bandwidth: float </label>
+      <input type="number" id="meanshift-bandwidth">
+      <br>
+      <label for="meanshift-cluster-all">Cluster all? </label>
+      <input type="checkbox" id="meanshift-cluster-all" checked>
+  
+      <h4>Spectral</h4>
+      <label for="spectral-n-clusters">n clusters: </label>
+      <input type="number" min="1" id="spectral-n-clusters">
+  
+      <h4>Hierarchical</h4>
+      <label for="hierarchical-clusters">n clusters: </label>
+      <input type="number" min="1" id="hierarchical-clusters">
+      <br>
+      <label for="hierarchical-affinity">affinity: </label>
+      <select id="hierarchical-affinity">
+        <option value="euclidian">Euclidian</option>
+        <option value="l1">L1</option>
+        <option value="l2">L2</option>
+        <option value="manhattan">Manhattan</option>
+        <option value="cosine">Cosine</option>
+      </select>
+      <br>
+      <label for="hierarchical-linkage">linkage: </label>
+      <select id="hierarchical-linkage">
+        <option value="ward">Ward</option>
+        <option value="complete">Complete</option>
+        <option value="average">Average</option>
+        <option value="single">Single</option>
+      </select>
+
+      <h4>DBSCAN</h4>
+      <label for="dbscan-eps">epsilon: </label>
+      <input type="number" min="0" value="0.5" id="dbscan-eps">
+      <br>
+      <label for="dbscan-min-samples">minimum samples: </label>
+      <input type="number" min="1" step="1" value="5" id="dbscan-min-samples">
+      <br>
+      <label for="dbscan-algorithm">algorithm: </label>
+      <select id="dbscan-algorithm">
+        <option value="auto">auto</option>
+        <option value="ball_tree">Ball tree</option>
+        <option value="kd_tree">KD tree</option>
+        <option value="brute">brute</option>
+      </select>
+      <br>
+      <label for="dbscan-p">Minkowski power: </label>
+      <input type="number" min="1" step="1" value="2" id="dbscan-p">
+
+      <h4>OPTICS</h4>
+      <label for="optics-eps">epsilon: </label>
+      <input type="number" min="0" value="0.5" id="dbscan-eps">
+      <br>
+      <label for="optics-min-samples">minimum samples: </label>
+      <input type="number" min="2" step="1" value="5" id="optics-min-samples">
+      <br>
+      <label for="optics-metric">metric: </label>
+      <select id="optics-metric">
+        <option value="minkowski">minkowski</option>
+        <option value="cityblock">city block</option>
+        <option value="cosine">cosine</option>
+        <option value="euclidean">euclidean</option>
+        <option value="l1">l1</option>
+        <option value="l2">l2</option>
+        <option value="manhattan">manhattan</option>
+        <option value="braycurtis">braycurtis</option>
+        <option value="canberra">canberra</option>
+        <option value="chebyshev">chebyshev</option>
+        <option value="correlation">correlation</option>
+        <option value="dice">dice</option>
+        <option value="hamming">hamming</option>
+        <option value="jaccard">jaccard</option>
+        <option value="kulsinski">kulsinski</option>
+        <option value="mahalanobis">mahalanobis</option>
+        <option value="rogerstanimoto">rogerstanimoto</option>
+        <option value="russellrao">russellrao</option>
+        <option value="seuclidean">seuclidean</option>
+        <option value="sokalmichener">sokalmichener</option>
+        <option value="sokalsneath">sokalsneath</option>
+        <option value="sqeuclidean">sqeuclidean</option>
+        <option value="yule">yule</option>
+      </select>
+      <br>
+      <label for="optics-p">Minkowski power: </label>
+      <input type="number" min="1" step="1" value="2" id="optics-p">
+      <br>
+      <label for="optics-cluster-method">cluster method: </label>
+      <select id="optics-cluster-method">
+        <option value="xi">xi</option>
+        <option value="dbscan">dbscan</option>
+      </select>
+      <br>
+      <label for="optics-algorithm">algorithm: </label>
+      <select id="optics-algorithm">
+        <option value="auto">auto</option>
+        <option value="ball_tree">Ball tree</option>
+        <option value="kd_tree">KD tree</option>
+        <option value="brute">brute</option>
+      </select>
+
+      <h4>BIRCH</h4>
+      <label for="birch-threshold">threshold: </label>
+      <input type="number" value="0.5" id="birch-threshold">
+      <br>
+      <label for="birch-branching-factor">branching factor: </label>
+      <input type="number" min="1" value="50" id="birch-branching-factor">
+      <br>
+      <label for="birch-n-clusters">n clusters: </label>
+      <input type="number" min="1" value="3" id="birch-n-clusters">
+
+      <br><br>
+      <input type="button" value="run and reload" onclick="rerunClustering()">
+    </div>
   </body>
 </html>
