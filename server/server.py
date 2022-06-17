@@ -33,7 +33,8 @@ class MyServer(BaseHTTPRequestHandler):
         #  arguments were outside of acceptable ranges, etc.)
         content_len = int(self.headers.get('Content-Length'))
         post_body = self.rfile.read(content_len)
-        print(post_body)
+        body_json = json.loads(post_body.decode("utf-8"))
+        # print(json.dumps(body_json, indent=2, sort_keys=True))
 
         self.send_response(200)
         self.send_header("Content-type", "text/html")
